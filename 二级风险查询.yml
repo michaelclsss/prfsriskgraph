@@ -1,0 +1,993 @@
+app:
+  description: 风险管理二级风险数据查询
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  mode: workflow
+  name: 二级风险查询
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/openai_api_compatible:0.0.11@410445eba2fa0f693d26dea2c3b9ffe51ad0777e021146ff877af6098412efc7
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: junjiem/mcp_sse:0.2.0@bda9b95b543f7418f637b40529abd4608675e9df2936b68e9e58babfac021d8b
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: junjiem/db_query:0.0.9@1060683d13870d0cb77d47664e5100a16a2029dada24cf1193bc2ce312295764
+kind: app
+version: 0.2.0
+workflow:
+  conversation_variables: []
+  environment_variables: []
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - image
+      allowed_file_upload_methods:
+      - local_file
+      - remote_url
+      enabled: false
+      fileUploadConfig:
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        image_file_size_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: ''
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInLoop: false
+        sourceType: start
+        targetType: llm
+      id: 1753150736465-source-1753150882011-target
+      source: '1753150736465'
+      sourceHandle: source
+      target: '1753150882011'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: parameter-extractor
+      id: 1753150882011-source-1753150940491-target
+      source: '1753150882011'
+      sourceHandle: source
+      target: '1753150940491'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: parameter-extractor
+        targetType: tool
+      id: 1753150940491-source-1753150792273-target
+      source: '1753150940491'
+      sourceHandle: source
+      target: '1753150792273'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: tool
+        targetType: code
+      id: 1753150792273-source-1753151014302-target
+      source: '1753150792273'
+      sourceHandle: source
+      target: '1753151014302'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: code
+        targetType: tool
+      id: 1753151014302-source-1753169415706-target
+      source: '1753151014302'
+      sourceHandle: source
+      target: '1753169415706'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: tool
+        targetType: http-request
+      id: 1753169415706-source-1753169474986-target
+      source: '1753169415706'
+      sourceHandle: source
+      target: '1753169474986'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: http-request
+        targetType: end
+      id: 1753169474986-source-1753151120246-target
+      source: '1753169474986'
+      sourceHandle: source
+      target: '1753151120246'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: code
+        targetType: llm
+      id: 1753151014302-source-1753151145894-target
+      source: '1753151014302'
+      sourceHandle: source
+      target: '1753151145894'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: end
+      id: 1753151145894-source-1753151120246-target
+      source: '1753151145894'
+      sourceHandle: source
+      target: '1753151120246'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        desc: ''
+        selected: false
+        title: 开始
+        type: start
+        variables:
+        - label: quiry
+          max_length: 256
+          options: []
+          required: true
+          type: text-input
+          variable: query
+      height: 90
+      id: '1753150736465'
+      position:
+        x: 80
+        y: 282
+      positionAbsolute:
+        x: 80
+        y: 282
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        is_team_authorization: true
+        output_schema: null
+        paramSchemas:
+        - auto_generate: null
+          default: mysql
+          form: llm
+          human_description:
+            en_US: Used for selecting the database type, mysql, oracle, oracle11g,
+              postgresql or mssql.
+            ja_JP: Used for selecting the database type, mysql, oracle, oracle11g,
+              postgresql or mssql.
+            pt_BR: Used for selecting the database type, mysql, oracle, oracle11g,
+              postgresql or mssql.
+            zh_Hans: 用于选择数据库类型，mysql、oracle、oracle11g、postgresql或mssql。
+          label:
+            en_US: Database type
+            ja_JP: Database type
+            pt_BR: Database type
+            zh_Hans: 数据库类型
+          llm_description: ''
+          max: null
+          min: null
+          name: db_type
+          options:
+          - label:
+              en_US: MySQL
+              ja_JP: MySQL
+              pt_BR: MySQL
+              zh_Hans: MySQL
+            value: mysql
+          - label:
+              en_US: Oracle
+              ja_JP: Oracle
+              pt_BR: Oracle
+              zh_Hans: Oracle
+            value: oracle
+          - label:
+              en_US: Oracle11g
+              ja_JP: Oracle11g
+              pt_BR: Oracle11g
+              zh_Hans: Oracle11g
+            value: oracle11g
+          - label:
+              en_US: PostgreSQL
+              ja_JP: PostgreSQL
+              pt_BR: PostgreSQL
+              zh_Hans: PostgreSQL
+            value: postgresql
+          - label:
+              en_US: Microsoft SQL Server
+              ja_JP: Microsoft SQL Server
+              pt_BR: Microsoft SQL Server
+              zh_Hans: Microsoft SQL Server
+            value: mssql
+          placeholder: null
+          precision: null
+          required: true
+          scope: null
+          template: null
+          type: select
+        - auto_generate: null
+          default: localhost
+          form: llm
+          human_description:
+            en_US: Database hostname or IP address (Original string, not URL-encoded
+              string).
+            ja_JP: Database hostname or IP address (Original string, not URL-encoded
+              string).
+            pt_BR: Database hostname or IP address (Original string, not URL-encoded
+              string).
+            zh_Hans: 数据库的主机名或IP地址（原始字符串，非URL编码字符串）。
+          label:
+            en_US: Database Host
+            ja_JP: Database Host
+            pt_BR: Database Host
+            zh_Hans: 数据库地址
+          llm_description: ''
+          max: null
+          min: null
+          name: db_host
+          options: []
+          placeholder: null
+          precision: null
+          required: true
+          scope: null
+          template: null
+          type: string
+        - auto_generate: null
+          default: null
+          form: llm
+          human_description:
+            en_US: Database port.
+            ja_JP: Database port.
+            pt_BR: Database port.
+            zh_Hans: 数据库的端口。
+          label:
+            en_US: Port
+            ja_JP: Port
+            pt_BR: Port
+            zh_Hans: 端口
+          llm_description: ''
+          max: null
+          min: null
+          name: db_port
+          options: []
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: number
+        - auto_generate: null
+          default: null
+          form: llm
+          human_description:
+            en_US: Database username (Original string, not URL-encoded string).
+            ja_JP: Database username (Original string, not URL-encoded string).
+            pt_BR: Database username (Original string, not URL-encoded string).
+            zh_Hans: 数据库的用户名（原始字符串，非URL编码字符串）。
+          label:
+            en_US: Username
+            ja_JP: Username
+            pt_BR: Username
+            zh_Hans: 用户名
+          llm_description: ''
+          max: null
+          min: null
+          name: db_username
+          options: []
+          placeholder: null
+          precision: null
+          required: true
+          scope: null
+          template: null
+          type: string
+        - auto_generate: null
+          default: null
+          form: llm
+          human_description:
+            en_US: Database password (Original string, not URL-encoded string).
+            ja_JP: Database password (Original string, not URL-encoded string).
+            pt_BR: Database password (Original string, not URL-encoded string).
+            zh_Hans: 数据库的密码（原始字符串，非URL编码字符串）。
+          label:
+            en_US: Password
+            ja_JP: Password
+            pt_BR: Password
+            zh_Hans: 密码
+          llm_description: ''
+          max: null
+          min: null
+          name: db_password
+          options: []
+          placeholder: null
+          precision: null
+          required: true
+          scope: null
+          template: null
+          type: secret-input
+        - auto_generate: null
+          default: null
+          form: llm
+          human_description:
+            en_US: Database name (Original string, not URL-encoded string).
+            ja_JP: Database name (Original string, not URL-encoded string).
+            pt_BR: Database name (Original string, not URL-encoded string).
+            zh_Hans: 数据库的名称（原始字符串，非URL编码字符串）。
+          label:
+            en_US: Database name
+            ja_JP: Database name
+            pt_BR: Database name
+            zh_Hans: 库名
+          llm_description: ''
+          max: null
+          min: null
+          name: db_name
+          options: []
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: string
+        - auto_generate: null
+          default: null
+          form: llm
+          human_description:
+            en_US: 'Database properties, for example: alt_host=host1&alt_host=host2&ssl_cipher=%2Fpath%2Fto%2Fcrt'
+            ja_JP: 'Database properties, for example: alt_host=host1&alt_host=host2&ssl_cipher=%2Fpath%2Fto%2Fcrt'
+            pt_BR: 'Database properties, for example: alt_host=host1&alt_host=host2&ssl_cipher=%2Fpath%2Fto%2Fcrt'
+            zh_Hans: 数据库属性，例如：alt_host=host1&alt_host=host2&ssl_cipher=%2Fpath%2Fto%2Fcrt
+          label:
+            en_US: Database properties
+            ja_JP: Database properties
+            pt_BR: Database properties
+            zh_Hans: 数据库属性
+          llm_description: ''
+          max: null
+          min: null
+          name: db_properties
+          options: []
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: string
+        - auto_generate: null
+          default: null
+          form: llm
+          human_description:
+            en_US: 'SQL query statement, for example: select * from tbl_name'
+            ja_JP: 'SQL query statement, for example: select * from tbl_name'
+            pt_BR: 'SQL query statement, for example: select * from tbl_name'
+            zh_Hans: SQL查询语句，例如：select * from tbl_name
+          label:
+            en_US: Query SQL
+            ja_JP: Query SQL
+            pt_BR: Query SQL
+            zh_Hans: SQL查询语句
+          llm_description: 'SQL query statement, for example: select * from tbl_name'
+          max: null
+          min: null
+          name: query_sql
+          options: []
+          placeholder: null
+          precision: null
+          required: true
+          scope: null
+          template: null
+          type: string
+        - auto_generate: null
+          default: markdown
+          form: form
+          human_description:
+            en_US: Used for selecting the output format, markdown or json.
+            ja_JP: Used for selecting the output format, markdown or json.
+            pt_BR: Used for selecting the output format, markdown or json.
+            zh_Hans: 用于选择输出格式，markdown或json。
+          label:
+            en_US: Output format
+            ja_JP: Output format
+            pt_BR: Output format
+            zh_Hans: 输出格式
+          llm_description: ''
+          max: null
+          min: null
+          name: output_format
+          options:
+          - label:
+              en_US: MARKDOWN
+              ja_JP: MARKDOWN
+              pt_BR: MARKDOWN
+              zh_Hans: MARKDOWN
+            value: markdown
+          - label:
+              en_US: JSON
+              ja_JP: JSON
+              pt_BR: JSON
+              zh_Hans: JSON
+            value: json
+          placeholder: null
+          precision: null
+          required: true
+          scope: null
+          template: null
+          type: select
+        params:
+          db_host: ''
+          db_name: ''
+          db_password: ''
+          db_port: ''
+          db_properties: ''
+          db_type: ''
+          db_username: ''
+          output_format: ''
+          query_sql: ''
+        provider_id: junjiem/db_query/db_query
+        provider_name: junjiem/db_query/db_query
+        provider_type: builtin
+        selected: false
+        title: SQL查询
+        tool_configurations:
+          output_format: json
+        tool_description: 数据库SQL查询工具。
+        tool_label: SQL查询
+        tool_name: sql_query
+        tool_parameters:
+          db_host:
+            type: mixed
+            value: host.docker.internal
+          db_name:
+            type: mixed
+            value: postgres
+          db_password:
+            type: mixed
+            value: '123456'
+          db_port:
+            type: constant
+            value: 5432
+          db_type:
+            type: constant
+            value: postgresql
+          db_username:
+            type: mixed
+            value: postgres
+          query_sql:
+            type: mixed
+            value: '{{#1753150940491.sql#}}'
+        type: tool
+      height: 90
+      id: '1753150792273'
+      position:
+        x: 1180
+        y: 282
+      positionAbsolute:
+        x: 1180
+        y: 282
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - '1753150736465'
+          - query
+        desc: ''
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: qwen-plus
+          provider: langgenius/openai_api_compatible/openai_api_compatible
+        prompt_template:
+        - id: d3a41227-9ddd-40c7-a120-5266e2d57aa8
+          role: system
+          text: '<instruction>
+
+            将自然语言{{#context#}}转换为SQL查询语句是一项需要理解用户意图并将其转化为结构化查询的任务。以下是完成此任务的详细步骤：
+
+            1. 首先，仔细阅读用户的自然语言输入，确保完全理解其含义。
+
+            2. 确定输入中涉及的数据库表、字段以及可能的条件或限制。
+
+            3. 根据输入中的关键词和逻辑关系，构建一个符合SQL语法的查询语句。
+
+            4. 如果输入中包含模糊或不明确的信息，请根据上下文进行合理推测，并在输出中提供清晰的查询语句。
+
+            5. 输出的SQL查询语句不应包含任何XML标签或其他非SQL元素。以json格式输出，*输出示例* {"sql" : "select row_id,
+            risk_parent_id, risk_label, risk_value, year, quarter, comments from jianguan.second_level_risk   where
+            year = 2024 and quarter =1 and risk_parent_id = 10"};
+
+            6. 确保生成的SQL查询语句语法正确且能够执行。
+
+            </instruction>
+
+            <prompt_template>
+
+            为了帮助您更好地完成将自然语言转换为SQL查询语句的任务，请充分理解下列对表结构的说明，再生成SQL：
+
+            **表名*  jianguan.second_level_risk，存放所有二级风险数据
+
+            每个字段意义如下：
+
+            *risk_parent_id** 为 一级风险的代码，映射关系为 10代表[操作风险]，20代表[市场风险]，30代表[信用风险]，40代表[偿付能力风险]，50代表[流动性风险]，60代表[保险风险]，70代表[战略风险]，80代表[声誉风险；
+
+            *risk_lable** 为二级风险的中文名称；
+
+            *risk_value** 为二级风险的评分；
+
+            *year** 为风险评级年份；
+
+            *quarter** 为风险评级季度；
+
+            *comments** 为二级风险评分依据
+
+
+            首先，确保您已经充分理解了任务的内容。这将帮助您准确地将自然语言转化为有效的SQL查询。
+
+
+            接下来，通过分析提供的示例来加深对任务的理解。这些示例展示了如何从自然语言输入中提取关键信息，并将其转化为正确的SQL查询语句。
+
+
+            在实际操作过程中，请始终遵循以下原则：
+
+            - 确保生成的SQL查询语句语法正确。
+
+            - 尽量避免歧义，如果存在多种可能的解释，请选择最合理的方案。
+
+            - 不要在输出中使用任何XML标签或其他非SQL元素。
+
+
+            最后，不断练习和优化您的技能，以便更高效地完成此类任务。请记住，清晰的逻辑和准确的表达是成功的关键。
+
+            </prompt_template>
+
+            <examples>
+
+            <example>
+
+            输入：查询分析24年一季度操作风险对应的二级风险。
+
+            输出：
+
+            {"sql" : "select row_id, risk_parent_id, risk_label, risk_value, year,
+            quarter, comments from jianguan.second_level_risk   where year = 2024
+            and quarter =1 and risk_parent_id = 10"};
+
+            </example>
+
+
+            </examples>'
+        - id: 1894db51-b2ab-4349-b838-5165df3087f3
+          role: user
+          text: '{{#1753150736465.query#}}'
+        selected: false
+        title: LLM
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 90
+      id: '1753150882011'
+      position:
+        x: 478.00390625
+        y: 282
+      positionAbsolute:
+        x: 478.00390625
+        y: 282
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: qwen-plus
+          provider: langgenius/openai_api_compatible/openai_api_compatible
+        parameters:
+        - description: 提却sql语句
+          name: sql
+          required: true
+          type: string
+        query:
+        - '1753150882011'
+        - text
+        reasoning_mode: prompt
+        selected: false
+        title: 参数提取器
+        type: parameter-extractor
+        variables: []
+        vision:
+          enabled: false
+      height: 90
+      id: '1753150940491'
+      position:
+        x: 811.00390625
+        y: 282
+      positionAbsolute:
+        x: 811.00390625
+        y: 282
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        code: "import json\ndef main(arg1):\n    content = arg1\n    re = content[0][\"\
+          records\"]\n    second_level = {\"second_level\": re}\n    reslut =json.dumps(second_level)\n\
+          \    return {\n        \"result\": reslut\n    }\n"
+        code_language: python3
+        desc: ''
+        outputs:
+          result:
+            children: null
+            type: string
+        selected: false
+        title: 代码执行
+        type: code
+        variables:
+        - value_selector:
+          - '1753150792273'
+          - json
+          variable: arg1
+      height: 54
+      id: '1753151014302'
+      position:
+        x: 1483
+        y: 282
+      positionAbsolute:
+        x: 1483
+        y: 282
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        outputs:
+        - value_selector:
+          - '1753169474986'
+          - files
+          variable: img
+        - value_selector:
+          - '1753151145894'
+          - text
+          variable: result
+        selected: false
+        title: 结束
+        type: end
+      height: 116
+      id: '1753151120246'
+      position:
+        x: 2558
+        y: 438
+      positionAbsolute:
+        x: 2558
+        y: 438
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - '1753151014302'
+          - result
+        desc: ''
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: qwen-plus
+          provider: langgenius/openai_api_compatible/openai_api_compatible
+        prompt_template:
+        - id: 25575d32-09ec-465f-9825-914ea5c1b6f4
+          role: system
+          text: '根据{{#context#}}总结
+
+            <note>
+
+            每个字段意义如下：
+
+            *risk_parent_id** 为 一级风险的代码，映射关系为 10代表[操作风险]，20代表[市场风险]，30代表[信用风险]，40代表[偿付能力风险]，50代表[流动性风险]，60代表[保险风险]，70代表[战略风险]，80代表[声誉风险；
+
+            *risk_lable** 为二级风险的中文名称；
+
+            *risk_value** 为二级风险的评分；
+
+            *year** 为风险评级年份；
+
+            *quarter** 为风险评级季度；
+
+            *comments** 为二级风险评分依据
+
+            </note>'
+        selected: false
+        title: LLM 2
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 90
+      id: '1753151145894'
+      position:
+        x: 1786
+        y: 480
+      positionAbsolute:
+        x: 1786
+        y: 480
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        is_team_authorization: true
+        output_schema: null
+        paramSchemas:
+        - auto_generate: null
+          default: null
+          form: llm
+          human_description:
+            en_US: Name of the tool to execute.
+            ja_JP: Name of the tool to execute.
+            pt_BR: Name of the tool to execute.
+            zh_Hans: 要执行的工具的名称。
+          label:
+            en_US: Tool Name
+            ja_JP: Tool Name
+            pt_BR: Tool Name
+            zh_Hans: 工具名称
+          llm_description: Name of the MCP tool to execute.
+          max: null
+          min: null
+          name: tool_name
+          options: []
+          placeholder: null
+          precision: null
+          required: true
+          scope: null
+          template: null
+          type: string
+        - auto_generate: null
+          default: null
+          form: llm
+          human_description:
+            en_US: Tool arguments (JSON string in the python dict[str, Any] format).
+            ja_JP: Tool arguments (JSON string in the python dict[str, Any] format).
+            pt_BR: Tool arguments (JSON string in the python dict[str, Any] format).
+            zh_Hans: 工具的参数。
+          label:
+            en_US: Arguments
+            ja_JP: Arguments
+            pt_BR: Arguments
+            zh_Hans: 参数
+          llm_description: MCP Tool arguments (JSON string in the python dict[str,
+            Any] format).
+          max: null
+          min: null
+          name: arguments
+          options: []
+          placeholder: null
+          precision: null
+          required: true
+          scope: null
+          template: null
+          type: string
+        - auto_generate: null
+          default: 1
+          form: form
+          human_description:
+            en_US: Fetch and call the preset MCP Resources as Tools.
+            ja_JP: Fetch and call the preset MCP Resources as Tools.
+            pt_BR: Fetch and call the preset MCP Resources as Tools.
+            zh_Hans: 将预设的 MCP Resources 作为 Tools 返回和调用。
+          label:
+            en_US: MCP Resources as Tools
+            ja_JP: MCP Resources as Tools
+            pt_BR: MCP Resources as Tools
+            zh_Hans: MCP 资源作为工具
+          llm_description: ''
+          max: null
+          min: null
+          name: resources_as_tools
+          options: []
+          placeholder: null
+          precision: null
+          required: true
+          scope: null
+          template: null
+          type: boolean
+        - auto_generate: null
+          default: 1
+          form: form
+          human_description:
+            en_US: Fetch and call the preset MCP Prompts as Tools.
+            ja_JP: Fetch and call the preset MCP Prompts as Tools.
+            pt_BR: Fetch and call the preset MCP Prompts as Tools.
+            zh_Hans: 将预设的 MCP Prompts 作为 Tools 返回和调用。
+          label:
+            en_US: MCP Prompts as Tools
+            ja_JP: MCP Prompts as Tools
+            pt_BR: MCP Prompts as Tools
+            zh_Hans: MCP 提示词作为工具
+          llm_description: ''
+          max: null
+          min: null
+          name: prompts_as_tools
+          options: []
+          placeholder: null
+          precision: null
+          required: true
+          scope: null
+          template: null
+          type: boolean
+        - auto_generate: null
+          default: null
+          form: llm
+          human_description:
+            en_US: MCP Servers config, support multiple MCP services. (Optional, Filling
+              in this field will overwrite the MCP Servers config entered during authorization.)
+            ja_JP: MCP Servers config, support multiple MCP services. (Optional, Filling
+              in this field will overwrite the MCP Servers config entered during authorization.)
+            pt_BR: MCP Servers config, support multiple MCP services. (Optional, Filling
+              in this field will overwrite the MCP Servers config entered during authorization.)
+            zh_Hans: MCP服务配置，支持多个MCP服务。 （选填，填写后将覆盖授权时填写的MCP服务配置。）
+          label:
+            en_US: MCP Servers config
+            ja_JP: MCP Servers config
+            pt_BR: MCP Servers config
+            zh_Hans: MCP 服务配置
+          llm_description: ''
+          max: null
+          min: null
+          name: servers_config
+          options: []
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: string
+        params:
+          arguments: ''
+          prompts_as_tools: ''
+          resources_as_tools: ''
+          servers_config: ''
+          tool_name: ''
+        provider_id: junjiem/mcp_sse/mcp_sse
+        provider_name: junjiem/mcp_sse/mcp_sse
+        provider_type: builtin
+        selected: false
+        title: 调用 MCP 工具
+        tool_configurations:
+          prompts_as_tools: 1
+          resources_as_tools: 1
+        tool_description: 调用 MCP 服务端工具。
+        tool_label: 调用 MCP 工具
+        tool_name: mcp_sse_call_tool
+        tool_parameters:
+          arguments:
+            type: mixed
+            value: '{{#1753151014302.result#}}'
+          tool_name:
+            type: mixed
+            value: draw_second_risk
+        type: tool
+      height: 116
+      id: '1753169415706'
+      position:
+        x: 1786
+        y: 282
+      positionAbsolute:
+        x: 1786
+        y: 282
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        authorization:
+          config: null
+          type: no-auth
+        body:
+          data: []
+          type: none
+        desc: ''
+        headers: ''
+        method: get
+        params: ''
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 100
+        selected: false
+        ssl_verify: true
+        timeout:
+          max_connect_timeout: 0
+          max_read_timeout: 0
+          max_write_timeout: 0
+        title: HTTP 请求
+        type: http-request
+        url: http://10.0.8.65:8081/risk_graph/circles.png
+        variables: []
+      height: 140
+      id: '1753169474986'
+      position:
+        x: 2129.790268158155
+        y: 287.7759842543736
+      positionAbsolute:
+        x: 2129.790268158155
+        y: 287.7759842543736
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    viewport:
+      x: 81.72495314370349
+      y: 151.34305637378225
+      zoom: 0.5358867340356527
